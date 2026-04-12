@@ -21,12 +21,18 @@ func testLL() {
 	print(head)
 	head = insertAtEnd(head, 40)
 	print(head)
+	head = insertAtEnd(head, 40)
+	print(head)
 	// head = delete(head, 30)
 	// print(head)
 	// head = reverseLL(head)
 	// print(head)
 	middleNum := middle(head)
 	fmt.Println("middle is: ", middleNum.Val)
+	fmt.Println("***********************")
+	first, second := splitLL(head)
+	print(first)
+	print(second)
 }
 
 func print(head *Node) {
@@ -109,4 +115,19 @@ func middle(head *Node) *Node {
 		fast = fast.Next.Next
 	}*/
 	return slow
+}
+
+func splitLL(head *Node) (*Node, *Node) {
+	var slow, fast *Node = head, head
+
+	// we have to get first middle instead of second middle
+	// to get the both the LLs of equal length
+	for fast.Next != nil && fast.Next.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	secondLLHead := slow.Next
+	slow.Next = nil
+	return head, secondLLHead
 }
